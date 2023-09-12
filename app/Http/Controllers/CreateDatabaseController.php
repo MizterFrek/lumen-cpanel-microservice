@@ -21,7 +21,7 @@ class CreateDatabaseController extends CpanelController
 
         $this->updateMysqlUserPrivileges();
 
-        return $this->successResponse( message: 'OK');
+        return $this->successResponse( message: 'La base de datos se ha creado correctamente');
     }
 
     /**

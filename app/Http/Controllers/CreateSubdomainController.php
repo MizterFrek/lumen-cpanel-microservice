@@ -10,11 +10,11 @@ class CreateSubdomainController extends CpanelController
 
     public function __invoke( Request $request )
     {
-        $this->validate( $request, [ 'tenant' => 'required|string' ]);
+        $this->validate( $request, [ 'subdomain' => 'required|string' ]);
 
-        $this->createSubdomain( $request->tenant );
+        $this->createSubdomain( $request->subdomain );
 
-        return $this->successResponse( message: 'OK');
+        return $this->successResponse( message: 'El subdominio se ha creado correctamente');
     }
 
     /**
@@ -22,16 +22,14 @@ class CreateSubdomainController extends CpanelController
      * @param  string $tenant
      * @return void
      */
-    private function createSubdomain( string $tenant ): void
+    private function createSubdomain( string $subdomain ): void
     {
-        $cp_url = explode('.', $this->cp_url );
-        $i = count($cp_url);
-        $rootDomain = $cp_url[$i-2] . '.' . $cp_url[$i-1];
+
         $url = $this->domainRequestUrl(
             self::CREATE_SUBDOMAIN_QUERY,
             [
-                'domain' => $tenant,
-                'rootdomain' => $rootDomain,
+                'domain' => $subdomain,
+                'rootdomain' => $this->cp_root_domain,
                 'dir' => str_replace('/', '%2f', $this->cp_subdomain_path),
             ]
         );
