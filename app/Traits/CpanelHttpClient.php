@@ -46,6 +46,17 @@ trait CpanelHttpClient
     }
 
     /**
+     * Construye la url query para las peticiones del Adminstrador de Dominios
+     * @param  string $query
+     * @param  array<string, string> $params
+     * @return string
+     */
+    public function domainRequestUrl( string $query, array $params ): string
+    {
+        return $this->requestUrl( "$this->cp_url:$this->cp_port/execute/SubDomain/$query", $params );
+    }
+
+    /**
      * Construye la url query para las peticiones de Mysql en Cpanel
      * @param  string $query
      * @param  array<string, string> $params

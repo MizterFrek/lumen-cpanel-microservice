@@ -11,17 +11,17 @@ class CreateDatabaseController extends CpanelController
     const USER_PRIVILEGES = 'ALL%20PRIVILEGES';
     protected string $database_name;
 
-
-    public function __invoke(Request $request): \Illuminate\Http\JsonResponse
+    public function __invoke( Request $request ): \Illuminate\Http\JsonResponse
     {
         $this->validate( $request, [ 'tenant' => 'required|string' ]);
 
         $this->database_name = (string) $this->cp_prefix_db . $request->tenant;
 
         $this->createMysqlDatabase( $this->database_name );
+
         $this->updateMysqlUserPrivileges();
 
-        return response()->json(['message' => 'OK']);
+        return $this->successResponse( message: 'OK');
     }
 
     /**

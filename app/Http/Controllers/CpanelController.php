@@ -16,6 +16,7 @@ class CpanelController extends BaseController
     protected string $cp_token;
     protected string $cp_mysql_user;
     protected string $cp_mysql_password;
+    protected string $cp_subdomain_path;
 
     public function __construct()
     {
@@ -26,5 +27,6 @@ class CpanelController extends BaseController
         $this->cp_token = config('cpanel.token');
         $this->cp_mysql_user = config('cpanel.mysql_user');
         $this->cp_mysql_password = config('cpanel.mysql_password');
+        $this->cp_subdomain_path = config('cpanel.subdomain_path');
     }
 }
