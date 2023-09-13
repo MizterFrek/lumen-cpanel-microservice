@@ -13,14 +13,10 @@ class CreateDatabaseController extends CpanelController
 
     public function __invoke( Request $request ): \Illuminate\Http\JsonResponse
     {
-        $this->validate( $request, [ 'tenant' => 'required|string' ]);
-
+        $this->validate( $request, [ 'tenant' => "required|string|not_in:$this->cp_domains_not_allowed" ]);
         $this->database_name = (string) $this->cp_prefix_db . $request->tenant;
-
         $this->createMysqlDatabase( $this->database_name );
-
         $this->updateMysqlUserPrivileges();
-
         return $this->successResponse( message: 'La base de datos se ha creado correctamente');
     }
 

@@ -54,7 +54,8 @@ class Handler extends ExceptionHandler
         }
         if($exception instanceof \Illuminate\Validation\ValidationException) {
             $errors = $exception->validator->errors()->getMessages();
-            return $this->errorResponse($errors, Response::HTTP_UNPROCESSABLE_ENTITY);
+            $errors = array_map( fn($item) => $item[0], $errors);
+            return $this->errorResponse(implode(',', $errors ), Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         if($exception instanceof \Illuminate\Auth\Access\AuthorizationException) {
             return $this->errorResponse($exception->getMessage(),

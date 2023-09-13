@@ -10,10 +10,8 @@ class CreateSubdomainController extends CpanelController
 
     public function __invoke( Request $request )
     {
-        $this->validate( $request, [ 'subdomain' => 'required|string' ]);
-
+        $this->validate( $request, [ 'subdomain' => "required|string|not_in:$this->cp_domains_not_allowed" ]);
         $this->createSubdomain( $request->subdomain );
-
         return $this->successResponse( message: 'El subdominio se ha creado correctamente');
     }
 
@@ -24,7 +22,6 @@ class CreateSubdomainController extends CpanelController
      */
     private function createSubdomain( string $subdomain ): void
     {
-
         $url = $this->domainRequestUrl(
             self::CREATE_SUBDOMAIN_QUERY,
             [

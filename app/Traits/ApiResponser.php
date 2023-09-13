@@ -23,7 +23,7 @@ trait ApiResponser
      * @param int $code
      * @return JsonResponse
      */
-    public function errorResponse(mixed $message, int $code, bool $status = false): JsonResponse
+    public function errorResponse(string $message, int $code, bool $status = false): JsonResponse
     {
         return new JsonResponse(['status' => $status, 'error' => $message, 'code' => $code], $code);
     }

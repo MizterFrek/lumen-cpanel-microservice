@@ -8,6 +8,8 @@ El siguiente microservicio tiene la finalidad de consumir [Cpanel UAPI](https://
 
 - Crear base de datos y asignarlo a usuario Mysql predeterminado;
 - Asignar un subdominio a una ruta archivo predeterminado.
+  
+> **Note:** Está inhabilitado la creación de un subdominio nombrado "cpanel" por defecto, debido a que sobreescribiría el host de alojamiento de todo el servidor. Si se desean agregar mas subdominios para impedir su creación se puede hacer en la variable de entorno __DOMAINS_NOT_ALLOWED__.
 
 ##EndPoints
 | Method | Route | Request | Function |
@@ -26,11 +28,11 @@ El siguiente microservicio tiene la finalidad de consumir [Cpanel UAPI](https://
 | code | numérico |
 ##### Ejemplo de respuesta:
 ```sh
-	{
-		status: true,
-		message: 'OK',
-		code: 200
-	}
+{
+  status: true,
+  message: 'OK',
+  code: 200
+}
 ```
 
 ### Error response interface
@@ -41,11 +43,11 @@ El siguiente microservicio tiene la finalidad de consumir [Cpanel UAPI](https://
 | code | numérico |
 ##### Ejemplo de respuesta:
 ```sh
-	{
-		status: false,
-		error: 'Page not found',
-		code: 404
-	}
+{
+  status: false,
+  error: 'Page not found',
+  code: 404
+}
 ```
 
 
@@ -53,6 +55,7 @@ El siguiente microservicio tiene la finalidad de consumir [Cpanel UAPI](https://
 | Variable | Uso |
 | ------ | ------ |
 | ACCEPTED_SECRETS | Token de autorización para el consumo de el microservicio |
+| DOMAINS_NOT_ALLOWED | Lista de subdominios que no se deben permitir su creación |
 | CPANEL_SUBDOMAIN_PATH | Directorio de los Archivos de Cpanel donde apuntará el subdominio que se va a  crear |
 | CPANEL_URL | URL con subdominio de Cpanel donde se ejecutaran las APIs |
 | CPANEL_PORT | Número de Puerto para las peticiones API de Cpanel |
@@ -73,6 +76,7 @@ CPANEL_TOKEN=**************************************
 PREFIX_DATABASE=prefix_database_
 DB_MANAGER_USERNAME=prefix_database_dominio_user
 DB_MANAGER_PASSWORD=****************
+DOMAINS_NOT_ALLOWED=domain1,domain2,domain3
 ```
 
 ## Framework
