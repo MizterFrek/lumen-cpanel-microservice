@@ -16,7 +16,13 @@ class AuthenticateAccess
      */
     public function handle($request, Closure $next)
     {
-        $validSecrets = explode(',', env('ACCEPTED_SECRETS'));
+        $acceptedSecrets = env('ACCEPTED_SECRETS');
+        if( strlen($acceptedSecrets) == 0 )
+        {
+            abort(Response::HTTP_LOCKED);
+        }
+
+        $validSecrets = explode(',', $acceptedSecrets);
         if( in_array($request->header('Authorization'), $validSecrets) )
         {
             return $next($request);
