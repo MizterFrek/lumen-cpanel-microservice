@@ -9,28 +9,30 @@ class DatabaseService extends Cpanel implements DatabaseConfigurations
 {
     protected string $database_name;
 
-    public function setDatabaseName(string $name)
+    public function setDatabaseName(string $name): self
     {
         $this->database_name = (string) $this->cp_prefix_db . $name;
+
         return $this;
     }
     /**
      * @link https://api.docs.cpanel.net/openapi/cpanel/operation/Mysql-create_user/
      */
-    public function createMysqlDatabase()
+    public function createMysqlDatabase(): self
     {
         $url = $this->mysqlRequestUrl(
             self::CREATE_DATABASE_QUERY,
             [ 'name' => $this->database_name ]
         );
         $this->getRequest( $url );
+
         return $this;
     }
 
     /**
      * @link https://api.docs.cpanel.net/openapi/cpanel/operation/set_privileges_on_database/
      */
-    public function updateMysqlUserPrivileges()
+    public function updateMysqlUserPrivileges(): self
     {
         $url = $this->mysqlRequestUrl(
             self::SET_PRIVILEGES_QUERY,
@@ -41,6 +43,7 @@ class DatabaseService extends Cpanel implements DatabaseConfigurations
             ]
         );
         $this->getRequest( $url );
+
         return $this;
     }
 }

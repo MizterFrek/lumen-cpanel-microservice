@@ -2,34 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SubdomainService;
 use Illuminate\Http\Request;
 
-class CreateSubdomainController extends CpanelController
+class CreateSubdomainController extends Controller
 {
-    const CREATE_SUBDOMAIN_QUERY = 'addsubdomain';
-
-    public function __invoke( Request $request )
+    public function __invoke( Request $request, SubdomainService $service )
     {
-        $this->validate( $request, [ 'subdomain' => "required|string|not_in:$this->cp_domains_not_allowed" ]);
-        $this->createSubdomain( $request->subdomain );
+        $this->validate( $request, [ 'subdomain' => $this->subdomainRule() ]);
+
+        $service->createSubdomain( $request->subdomain );
+
         return $this->successResponse( message: 'El subdominio se ha creado correctamente');
     }
 
-    /**
-     * @link https://api.docs.cpanel.net/openapi/cpanel/operation/addsubdomain/
-     * @param  string $tenant
-     * @return void
-     */
-    private function createSubdomain( string $subdomain ): void
+    protected function subdomainRule(): string
     {
-        $url = $this->domainRequestUrl(
-            self::CREATE_SUBDOMAIN_QUERY,
-            [
-                'domain' => $subdomain,
-                'rootdomain' => $this->cp_root_domain,
-                'dir' => str_replace('/', '%2f', $this->cp_subdomain_path),
-            ]
-        );
-        $this->getRequest( $url );
+        return "required|string|not_in:$this->cp_domains_not_allowed";
     }
 }
