@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use Laravel\Lumen\Routing\Controller as BaseController;
+namespace App\Contracts;
 
 /**
- * CpanelController
+ * Cpanel
+ *
  * @version cPanel-UAPI 11.114.0.2
  * @link https://api.docs.cpanel.net/cpanel/introduction/
  *
@@ -36,9 +35,8 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  * @property string $cp_subdomain_path
  * Registra el directorio de los Archivos de Cpanel donde apuntará el subdominio a crear
  */
-class CpanelController extends BaseController
+abstract class Cpanel
 {
-    use \App\Traits\ApiResponser;
     use \App\Traits\CpanelHttpClient;
 
     protected string $cp_url;
@@ -50,7 +48,7 @@ class CpanelController extends BaseController
     protected string $cp_mysql_user;
     protected string $cp_mysql_password;
     protected string $cp_subdomain_path;
-    protected string $cp_domains_not_allowed;
+
 
     public function __construct()
     {
@@ -62,7 +60,6 @@ class CpanelController extends BaseController
         $this->cp_mysql_user = config('cpanel.mysql_user');
         $this->cp_mysql_password = config('cpanel.mysql_password');
         $this->cp_subdomain_path = config('cpanel.subdomain_path');
-        $this->cp_domains_not_allowed = config('cpanel.domains_not_allowed');
 
         $cp_url = explode('.', $this->cp_url );
         $i = count($cp_url);
