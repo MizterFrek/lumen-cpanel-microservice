@@ -57,6 +57,8 @@ El siguiente microservicio tiene la finalidad de consumir [cPanel UAPI](https://
 | PREFIX_DATABASE | Prefix de las bases de datos que tiene configurado cPanel |
 | DB_MANAGER_USERNAME | Usuario Mysql que se asignará a todas las bases de datos a crear |
 | DB_MANAGER_PASSWORD | Password del Usuario Mysql que se asignará a todas las bases de datos a crear |
+| CREATE_DATABASE_ROUTE | Ruta personalizada para la creacion de base de datos |
+| CREATE_SUBDOMAIN_ROUTE | Ruta personalizada para la creacion de subdomino |
 
 ##### Ejemplo de uso de variables de entorno
 ```sh

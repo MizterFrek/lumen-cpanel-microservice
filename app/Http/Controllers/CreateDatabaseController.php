@@ -9,7 +9,6 @@ class CreateDatabaseController extends Controller
 {
     public function __invoke( Request $request, DatabaseService $service ): \Illuminate\Http\JsonResponse
     {
-
         $this->validate( $request, [ 'tenant' => $this->tenantRule() ]);
 
         $service

@@ -61,7 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('cpanel');
-$app->configure('oauth');
+$app->configure('routes');
 
 /*
 |--------------------------------------------------------------------------
